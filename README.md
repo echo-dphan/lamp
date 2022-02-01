@@ -10,7 +10,7 @@ LAMP(Linux, Apache, MySQL and PHP) is a free and open-source tech stack used for
 
 ## <a id="lamp">Installation and configuration (Fedora)</a>
 ## <a id="apache">Apache</a>
-Here i'll be walking through and installation and configuration of an apache server on my local machine and setting up my dev environment.
+Here i'll be walking through the installation and configuration of an apache server on my local machine and setting up my dev environment.
 
 If apache is not already installed, you can install it using:
 ```
