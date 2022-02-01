@@ -1,5 +1,5 @@
 # LAMP 
-LAMP(Linux, Apache, MySQL and PHP) is a free and open-source tech stack used for many web applications. This respository contains relevant installation/troubleshooting content related to the LAMP stack that I'd like to document. This will come in handy when I need a refresher and help my colleagues that are new. I will also include a list of useful linux commands, bash scripts and tools that I like to use in my workflow.
+LAMP(Linux, Apache, MySQL and PHP) is a free and open-source software stack used for many web applications. This repository contains relevant installation/troubleshooting content related to the LAMP stack that I'd like to document. This will come in handy when I need a refresher and help any of my colleagues that are new. I will also include a list of useful linux commands, bash scripts and tools that I like to use in my workflow.
 
 # Table of contents
 * <a href=#lamp>Installation and configuration (Fedora)</a>
@@ -28,7 +28,7 @@ sudo systemctl status httpd
 ```
 
 ### Configuring virtual hosts
-Typically a developer will be working on multiple web applications thus learning how to set up multiple virtual hosts is essential. Before we create and configure virtual hosts we need to create the relevant directories and set appropriate file permissions. ```/var/www/html``` is the default directory where files are served. I prefer to create a seperate directory and leave the default directory intact.
+Typically, a developer will be working on multiple web applications thus learning how to set up multiple virtual hosts is essential. Before we create and configure virtual hosts we need to create the relevant directories and set appropriate file permissions. ```/var/www/html``` is the default directory where files are served. I prefer to create a seperate directory and leave the default directory intact.
 
 Here I am going to create a directory called sites using:
 ```
@@ -44,15 +44,18 @@ sudo chmod -R 755 /var/www/sites/
 
 It is convenient to create a symlink in the home directory to this file for easy access. We can create a symlink by navigating to the home directory(or whatever directory suits you).
 ```
-ln -s /var/www/sites <insert path/name>
+ln -s /var/www/sites <insert path>
 ```
 
 For example:
 ```
 ln -s /var/www/sites ~/sites
 ```
-
-We are going to create a virtual host for the domain: example.test
+or
+```
+ln -s /var/www/sites /home/<user>/sites
+```
+Now let's create a virtual host for the domain: example.test
 First, let's ```cd``` into symlink we had just created and create a new directory called example.test with an index.html file
 ```
 mkdir example.test
@@ -88,8 +91,8 @@ Write the following to your configuration file
 ```
 The number in the opening tag ```<VirtualHost *:80>``` refers to the port that apache will be listening on for requests to this domain.
 ```ServerName``` refers to the primary domain name that apache will use to identify the root directory that it will serve.
-```ServerAliases``` refers to the alternate domain names that point to your primary domain eg. www.example.test, ww.example.test
-When you create new vhosts simply copy the file and swap out example.test with your own domain and change the document root.
+```ServerAlias``` refers to the alternate domain names that point to your primary domain eg. www.example.test.
+When you create new vhosts simply copy the file and swap out example.test with your own domain and update the document root.
 
 Since we are hosting our websites locally, the DNS will not resolve to a valid ip. We will need to modify the ```/etc/hosts``` file and point the domain to our local machine. 
 
@@ -100,16 +103,21 @@ And append the following to the end of the file:
 ```
 127.0.0.1   example.test www.example.test
 ```
-Now restart apache using:
+You will need to restart apache everytime create a new virtual host or update the coniguration files Now restart apache using:
 ```
 sudo systemctl restart httpd
 ```
 We're all set!
-Now type in http://example.test and you should see the content of the index.html we created not to long ago. (we use http:// since we have not set up SSL yet).
+Now type in http://example.test in your browser and you should see the content of the index.html we created not to long ago. (we use http:// since we have not set up SSL yet).
 
 # Troubleshooting
-If you encounter a 403 error this likely means that you haven't set up the correct permissions for your /var/www/<domain> directory.
-Some people may also encounter this error due to selinux (Security Enhanced Linux) which is a security modile built into the linux kernel. It is possible to disable this feature via ```sudo setenforce 0``` but if you've all the permissions set up correctly you won't have to.
+* If you encounter a 403 error this likely means that you haven't set up the correct permissions for your /var/www/<domain> directory.
+* Some people may also encounter this error due to selinux (Security Enhanced Linux) which is a security modile built into the linux kernel. It is possible to disable this feature via ```sudo setenforce 0``` but if you've all the permissions set up correctly you won't have to.
+*If you get redirected to the default welcome page that means you either: 
+    1. Made a typo in the config files -> check your virtual host file
+    2. Did not update the document root in the config file -> check your virtual host file
+    3. index.html file was not created in the right directory. -> check your sites directory.
+If you made any changes remember to restart apache and see if the problem is resolved.
 
 Of course there will be extra steps required to enable https on 443 or configuring apache on live server connected to the internet. I may cover this later on.
 ## <a id="php">PHP</a>
