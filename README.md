@@ -99,7 +99,7 @@ Since we are hosting our websites locally, the DNS will not resolve to a valid i
 ```
 sudo vim /etc/hosts
 ```
-And append the following to the end of the file:
+Append the following to the end of the file:
 ```
 127.0.0.1   example.test www.example.test
 ```
@@ -113,10 +113,11 @@ Now type in http://example.test in your browser and you should see the content o
 # Troubleshooting
 * If you encounter a 403 error this likely means that you haven't set up the correct permissions for your /var/www/<domain> directory.
 * Some people may also encounter this error due to selinux (Security Enhanced Linux) which is a security modile built into the linux kernel. It is possible to disable this feature via ```sudo setenforce 0``` but if you've all the permissions set up correctly you won't have to.
-*If you get redirected to the default welcome page that means you either: 
-    1. Made a typo in the config files -> check your virtual host file
-    2. Did not update the document root in the config file -> check your virtual host file
-    3. index.html file was not created in the right directory. -> check your sites directory.
+* If you get redirected to the default welcome page that means you either: 
+    1. Made a typo in the virtual host file.
+    2. Did not update the document root in the virtual host file.
+    3. Forgot to include your config file directory in /etc/httpd/conf/httpd.conf
+    3. index.html file was not created in the right directory.
 If you made any changes remember to restart apache and see if the problem is resolved.
 
 Of course there will be extra steps required to enable https on 443 or configuring apache on live server connected to the internet. I may cover this later on.
