@@ -112,7 +112,6 @@ Now type in http://example.test in your browser and you should see the content o
 
 # Troubleshooting
 * If you encounter a 403 error this likely means that you haven't set up the correct permissions for your /var/www/<domain> directory.
-* Some people may also encounter this error due to selinux (Security Enhanced Linux) which is a security module built into the linux kernel. It is possible to disable this feature via ```sudo setenforce 0``` but if you've all the permissions set up correctly you won't have to.
 * If you get redirected to the default welcome page that means you either: 
     1. Made a typo in the virtual host file.
     2. Did not update the document root in the virtual host file.
