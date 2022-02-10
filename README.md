@@ -89,7 +89,7 @@ Write the following to your configuration file
     DocumentRoot /var/www/sites/example.test
 </VirtualHost>
 ```
-The number in the opening tag ```<VirtualHost *:80>``` refers to the port that apache will be listening on for requests to this domain.
+The number in the opening tag ```<VirtualHost localhost:80>``` refers to the port that apache will be listening on for requests to this domain.
 ```ServerName``` refers to the primary domain name that apache will use to identify the root directory that it will serve.
 ```ServerAlias``` refers to the alternate domain names that point to your primary domain eg. www.example.test.
 When you create new vhosts simply copy the file and swap out example.test with your own domain and update the document root.
