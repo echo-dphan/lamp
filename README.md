@@ -83,7 +83,7 @@ sudo vim example.conf
 ```
 Write the following to your configuration file
 ```
-<VirtualHost *:80>
+<VirtualHost localhost:80>
     ServerName example.test
     ServerAlias www.example.test
     DocumentRoot /var/www/sites/example.test
