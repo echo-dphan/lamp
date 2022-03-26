@@ -75,6 +75,13 @@ At the end of the file append the following:
 ```
 IncludeOptional vhosts/*.conf
 ```
+Now let's enable .htaccess override
+
+```
+<Directory "/var/www/sites">
+AllowOverride All
+</Directory>
+```
 
 Now let's create our virtual host file for example.test
 ```
